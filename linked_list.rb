@@ -90,6 +90,23 @@ class LinkedList
     nil
   end
 
+  def insert_at(value, index)
+    return append(value) if index >= size
+    return prepend(value) if index <= 0
+
+    new_node = Node.new(value)
+    new_node.next_node = at(index)
+    at(index - 1).next_node = new_node
+    new_node
+  end
+
+  def remove_at(index)
+    return nil if index >= size
+    return @head = at(1) if index.zero?
+
+    at(index - 1).next_node = at(index).next_node
+  end
+
   def to_s
     current_node = @head
     until current_node.nil?
@@ -105,3 +122,5 @@ end
 my_list = LinkedList.new
 10.times { my_list.append(rand(100)) }
 my_list.to_s
+my_list.remove_at(0)
+
